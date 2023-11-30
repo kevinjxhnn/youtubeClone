@@ -3,7 +3,6 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import IosShareIcon from "@mui/icons-material/IosShare";
 import NewComment from "../Components/NewComment";
 import Comment from "../Components/Comment";
-import RecommendedVideoCard from "../Components/RecommendedVideoCard";
 import Avatar from "@mui/material/Avatar";
 import { useParams } from "react-router-dom";
 import { db } from "../services/Firebase";
@@ -16,21 +15,35 @@ import {
   where,
 } from "firebase/firestore";
 
+import { videoContext } from "../Components/App";
+import VideoCard from "../Components/VideoCard";
+
 const Video = ({ allChannelData }) => {
+  const videoContextData = React.useContext(videoContext);
+
   const [videoData, setVideoData] = React.useState({});
+  console.log(videoData.tags);
   const [currentChannel, setCurrentChannel] = React.useState({});
 
   const { id } = useParams();
 
   const videosCollectionRef = doc(db, "videos", id);
 
+  const currentVideoTags = videoData.tags;
+
+  const filteredVideos = videoContextData
+    .filter((video) =>
+      video.tags.some((trimmedTag) => currentVideoTags?.includes(trimmedTag))
+    )
+    .filter((video) => video.id !== id);
+
   React.useEffect(() => {
     const fetchData = async () => {
       try {
         const video = await getDoc(videosCollectionRef);
         if (video.exists()) {
-          setVideoData(video.data());
-  
+          setVideoData({ ...video.data(), id: video.id });
+
           if (Array.isArray(allChannelData)) {
             const current = allChannelData.find(
               (item) => item.id === video.data().channel_id
@@ -44,10 +57,13 @@ const Video = ({ allChannelData }) => {
         console.error("Error retrieving data:", error);
       }
     };
-  
+
     fetchData();
-  }, [allChannelData, id, videosCollectionRef]);
-  
+  }, [allChannelData]);
+
+  const videoListElements = filteredVideos.map((item) => (
+    <VideoCard type="normal" item={item} size="small"/>
+  ));
 
   return (
     <div className="video--container">
@@ -114,16 +130,7 @@ const Video = ({ allChannelData }) => {
         <Comment />
         <Comment />
       </div>
-      <div className="video--recommendation">
-        <RecommendedVideoCard />
-        <RecommendedVideoCard />
-        <RecommendedVideoCard />
-        <RecommendedVideoCard />
-        <RecommendedVideoCard />
-        <RecommendedVideoCard />
-        <RecommendedVideoCard />
-        <RecommendedVideoCard />
-      </div>
+      <div className="video--recommendation">{videoListElements}</div>
     </div>
   );
 };

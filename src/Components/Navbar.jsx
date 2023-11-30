@@ -34,9 +34,6 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const Navbar = (prop) => {
   const navigate = useNavigate();
 
-
-  
-
   function handleClick() {
     localStorage.clear();
     window.location.reload();
@@ -157,26 +154,36 @@ const Navbar = (prop) => {
       setTags([]);
       setImgPerc(0);
       setVideoPerc(0);
-      navigate("/your-channel")
-
+      navigate("/your-channel");
     } catch (err) {
       console.log(err);
     }
   };
 
-  const handleSearch = React.useCallback((e) => {
-    prop.setSearch(e.target.value);
-  }, [prop.search]);
-  
-
- 
+  const handleSearch = React.useCallback(
+    (e) => {
+      prop.setSearch(e.target.value);
+    },
+    [prop.search]
+  );
+  const handleEnter = (event) => {
+    if (event.key === "Enter") {
+      navigate("/");
+    }
+  };
 
   return (
     <>
       <div className="navbar--container">
         <div className="navbar--wrapper">
           <div className="navbar--search-container">
-            <input className="navbar--input" type="text" placeholder="Search" onChange={handleSearch} />
+            <input
+              className="navbar--input"
+              type="text"
+              placeholder="Search"
+              onChange={handleSearch}
+              onKeyDown={handleEnter}
+            />
             <SearchIcon />
           </div>
 

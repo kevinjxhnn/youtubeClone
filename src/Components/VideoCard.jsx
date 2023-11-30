@@ -6,7 +6,6 @@ import { channelContext } from "./App";
 
 const VideoCard = (prop) => {
   const channelContextData = React.useContext(channelContext);
- 
 
   const [currentChannel, setCurrentChannel] = React.useState({});
 
@@ -16,7 +15,7 @@ const VideoCard = (prop) => {
 
   React.useEffect(() => {
     setCurrentChannel(getChannelData);
-  }, [channelContextData]);
+  }, [channelContextData, getChannelData]);
 
   function calculateDaysAgo(publishedTimestampSeconds) {
     const currentDateMilliseconds = new Date().getTime();
@@ -32,24 +31,63 @@ const VideoCard = (prop) => {
       to={`/video/${prop.item.id}`}
       style={{ textDecoration: "none", color: "inherit" }}
     >
-      <div className="videocard--container">
+      <div
+        className={
+          prop.size ? "videocard--container-small" : "videocard--container"
+        }
+      >
         <img
-          className="videocard--image"
+          className={prop.size ? "videocard--image-small" : "videocard--image"}
           src={prop.item.thumbnail}
           alt="thumbnail"
         />
-        <div className="videocard--details-container">
+        <div
+          className={
+            prop.size
+              ? "videocard--details-container-small"
+              : "videocard--details-container"
+          }
+        >
           <img
-            className="videocard--channel-img"
+            className={
+              prop.size
+                ? "videocard--channel-img-small"
+                : "videocard--channel-img"
+            }
             src={currentChannel?.channel_profile_pic}
             alt="profile pic"
           />
-          <div className="videocard--texts">
-            <h1 className="videocard--title">{prop.item.title}</h1>
-            <h2 className="videocard--channel-name">{prop.item.channel_id}</h2>
-            <div className="videocard--info">{`${calculateDaysAgo(
-              prop.item.published.seconds
-            )} days ago`}</div>
+          <div
+            className={
+              prop.size ? "videocard--texts-img-small" : "videocard--texts"
+            }
+          >
+            <h1
+              className={
+                prop.size ? "videocard--title-small" : "videocard--title"
+              }
+            >
+              {prop.item.title}
+            </h1>
+            <Link
+              to={`/channel/${prop.item.channel_id}`}
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <h2
+                className={
+                  prop.size
+                    ? "videocard--channel-name-small"
+                    : "videocard--channel-name"
+                }
+              >
+                {prop.item.channel_id}
+              </h2>
+            </Link>
+            <div
+              className={
+                prop.size ? "videocard--info-small" : "videocard--info"
+              }
+            >{`${calculateDaysAgo(prop.item.published.seconds)} days ago`}</div>
           </div>
         </div>
       </div>

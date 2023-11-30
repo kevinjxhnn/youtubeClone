@@ -13,7 +13,9 @@ code {
 }
 
 h1,
-h2 {
+h2,
+h3,
+h4 {
   margin: 0;
   padding: 0;
 }
@@ -497,4 +499,21 @@ input:focus {
   font-size: 18px;
   font-weight: 200;
   margin-top: 50px;
+}
+
+.your-channel--main {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.your-channel--content h4 {
+  font-size: 18px;
+  font-weight: 200;
+  margin-top: 5px;
+}
+
+.your-channel--content h3 {
+  font-size: 30px;
+  font-weight: 800;
 }

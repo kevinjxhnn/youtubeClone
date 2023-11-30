@@ -9,9 +9,11 @@ import React from "react";
 
 import { db } from "../services/Firebase";
 import { collection, getDocs } from "firebase/firestore";
+import YourChannel from "../Pages/YourChannel";
 import Channel from "../Pages/Channel";
 
 export const channelContext = React.createContext();
+export const videoContext = React.createContext();
 
 function App() {
   const [allChannelData, setAllChannel] = React.useState({});
@@ -56,7 +58,6 @@ function App() {
 
   if (search) {
     videosToDisplay = videoList.filter((video) => {
-      
       const hasMatchingTag = video.tags?.some((tag) =>
         tag.toLowerCase().includes(search.toLowerCase())
       );
@@ -73,27 +74,30 @@ function App() {
 
   return (
     <div className="app--container">
-      <channelContext.Provider value={allChannelData}>
-        <Menu />
-        <div className="app--main">
-          <Navbar search={search} setSearch={setSearch} />
-          <div className="app--wrapper">
-            <Routes>
-              <Route path="/">
-                <Route index element={<Home videoList={videosToDisplay} />} />
-                <Route path="/signin" element={<Signin />} />
-                <Route path="/your-channel" element={<Channel />} />
-                <Route path="video">
-                  <Route
-                    path=":id"
-                    element={<Video allChannelData={allChannelData} />}
-                  />
+      <videoContext.Provider value={videoList}>
+        <channelContext.Provider value={allChannelData}>
+          <Menu />
+          <div className="app--main">
+            <Navbar search={search} setSearch={setSearch} />
+            <div className="app--wrapper">
+              <Routes>
+                <Route path="/">
+                  <Route index element={<Home videoList={videosToDisplay} />} />
+                  <Route path="/signin" element={<Signin />} />
+                  <Route path="/your-channel" element={<YourChannel />} />
+                  <Route path="/channel/:channelName" element={<Channel />} />
+                  <Route path="video">
+                    <Route
+                      path=":id"
+                      element={<Video allChannelData={allChannelData} />}
+                    />
+                  </Route>
                 </Route>
-              </Route>
-            </Routes>
+              </Routes>
+            </div>
           </div>
-        </div>
-      </channelContext.Provider>
+        </channelContext.Provider>
+      </videoContext.Provider>
     </div>
   );
 }
