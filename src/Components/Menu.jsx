@@ -3,7 +3,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import SubscriptionsIcon from "@mui/icons-material/Subscriptions";
 import PortraitIcon from "@mui/icons-material/Portrait";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import img from "../images/logo.png";
+import img from "../images/white-youtube.svg";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 
@@ -14,8 +14,8 @@ const Menu = () => {
         <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
           <div className="menu--logo-container">
             <img src={img} alt="youtube icon" />
-            YouTube
-            <sup className="sup">IN</sup>
+            {/* YouTube
+            <sup className="sup">IN</sup> */}
           </div>
           <div className="menu--item">
             <HomeIcon />
