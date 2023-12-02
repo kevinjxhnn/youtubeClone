@@ -14,6 +14,7 @@ import {
   DialogTitle,
   Input,
   InputLabel,
+  LinearProgress,
   Slide,
   Snackbar,
   TextField,
@@ -26,6 +27,7 @@ import {
 } from "firebase/storage";
 import { app, db } from "../services/Firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -48,6 +50,8 @@ const Navbar = (prop) => {
   const [videoPerc, setVideoPerc] = React.useState(0);
   const [inputs, setInputs] = React.useState({});
   const [tags, setTags] = React.useState([]);
+
+  
 
   const handleChange = (e) => {
     setInputs((prevInputs) => {
@@ -77,11 +81,9 @@ const Navbar = (prop) => {
     const storageRef = ref(storage, fileName);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
-    // Listen for state changes, errors, and completion of the upload.
     uploadTask.on(
       "state_changed",
       (snapshot) => {
-        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         const progress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         console.log("Upload is " + progress + "% done");
@@ -148,12 +150,14 @@ const Navbar = (prop) => {
         tags,
         channel_id: localStorage.getItem("channelName"),
       });
+
       setSuccessOpen(true);
       setOpen(false);
       setInputs({});
       setTags([]);
       setImgPerc(0);
       setVideoPerc(0);
+      prop.setIsUploaded((prev) => [...prev, "uploaded"])
       navigate("/your-channel");
     } catch (err) {
       console.log(err);
@@ -166,6 +170,7 @@ const Navbar = (prop) => {
     },
     [prop.search]
   );
+
   const handleEnter = (event) => {
     if (event.key === "Enter") {
       navigate("/");
@@ -250,15 +255,35 @@ const Navbar = (prop) => {
         </DialogTitle>
         <DialogContent>
           {/* Video */}
-          <InputLabel
-            htmlFor="file"
-            sx={{ marginTop: "20px", fontSize: "13px" }}
-          >
-            Please select the video to upload.
-          </InputLabel>
+          {videoPerc == 0 && (
+            <InputLabel
+              htmlFor="file"
+              sx={{ marginTop: "20px", fontSize: "14px" }}
+            >
+              Please select the video to upload.
+            </InputLabel>
+          )}
+
+          {videoPerc > 0 && videoPerc < 100 && (
+            <InputLabel
+              htmlFor="file"
+              sx={{ marginTop: "20px", fontSize: "14px" }}
+            >
+              Uploading...
+            </InputLabel>
+          )}
+
+          {videoPerc == 100 && (
+            <InputLabel
+              htmlFor="file"
+              sx={{ marginTop: "20px", fontSize: "14px" }}
+            >
+              Video uploaded successfully.
+            </InputLabel>
+          )}
 
           {videoPerc > 0 ? (
-            "Upload: " + videoPerc + "%"
+            <LinearProgress variant="determinate" value={videoPerc} />
           ) : (
             <Input
               required
@@ -281,7 +306,7 @@ const Navbar = (prop) => {
             type="text"
             placeholder="Enter the title"
             fullWidth
-            variant="filled"
+            variant="outlined"
             sx={{ marginTop: "40px" }}
             name="title"
             onChange={handleChange}
@@ -294,7 +319,7 @@ const Navbar = (prop) => {
             required
             placeholder="Enter the description for the video"
             fullWidth
-            variant="filled"
+            variant="outlined"
             multiline
             sx={{ marginTop: "20px" }}
             rows={5}
@@ -309,21 +334,42 @@ const Navbar = (prop) => {
             required
             placeholder="Enter the tags, separated buy commas"
             fullWidth
-            variant="filled"
+            variant="outlined"
             sx={{ marginTop: "20px" }}
             onChange={(e) => handleTags(e)}
           />
 
           {/* Thumbnail */}
-          <InputLabel
-            htmlFor="file"
-            sx={{ marginTop: "40px", fontSize: "13px" }}
-          >
-            Please select a picture for the thumbnail.
-          </InputLabel>
+
+          {imgPerc == 0 && (
+            <InputLabel
+              htmlFor="file"
+              sx={{ marginTop: "20px", fontSize: "14px" }}
+            >
+              Please select the thumbnail to upload.
+            </InputLabel>
+          )}
+
+          {imgPerc > 0 && imgPerc < 100 && (
+            <InputLabel
+              htmlFor="file"
+              sx={{ marginTop: "20px", fontSize: "14px" }}
+            >
+              Uploading...
+            </InputLabel>
+          )}
+
+          {imgPerc == 100 && (
+            <InputLabel
+              htmlFor="file"
+              sx={{ marginTop: "20px", fontSize: "14px" }}
+            >
+              Thumbnail uploaded successfully.
+            </InputLabel>
+          )}
 
           {imgPerc > 0 ? (
-            "Upload: " + imgPerc + "%"
+            <LinearProgress variant="determinate" value={imgPerc} />
           ) : (
             <Input
               autoFocus

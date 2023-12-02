@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { db } from "../services/Firebase";
-import { doc, getDoc } from "firebase/firestore";
 import { channelContext } from "./App";
+import { calculateDaysAgo } from "../utils/calculateDaysAgo";
 
 const VideoCard = (prop) => {
   const channelContextData = React.useContext(channelContext);
@@ -17,14 +16,7 @@ const VideoCard = (prop) => {
     setCurrentChannel(getChannelData);
   }, [channelContextData, getChannelData]);
 
-  function calculateDaysAgo(publishedTimestampSeconds) {
-    const currentDateMilliseconds = new Date().getTime();
-    const firebaseDatetimeMilliseconds = publishedTimestampSeconds * 1000;
-    const timeDifference =
-      currentDateMilliseconds - firebaseDatetimeMilliseconds;
-    const daysAgo = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-    return daysAgo;
-  }
+  
 
   return (
     <Link
@@ -48,15 +40,20 @@ const VideoCard = (prop) => {
               : "videocard--details-container"
           }
         >
-          <img
-            className={
-              prop.size
-                ? "videocard--channel-img-small"
-                : "videocard--channel-img"
-            }
-            src={currentChannel?.channel_profile_pic}
-            alt="profile pic"
-          />
+          <Link
+            to={`/channel/${prop.item.channel_id}`}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <img
+              className={
+                prop.size
+                  ? "videocard--channel-img-small"
+                  : "videocard--channel-img"
+              }
+              src={currentChannel?.channel_profile_pic}
+              alt="profile pic"
+            />
+          </Link>
           <div
             className={
               prop.size ? "videocard--texts-img-small" : "videocard--texts"
@@ -69,6 +66,7 @@ const VideoCard = (prop) => {
             >
               {prop.item.title}
             </h1>
+
             <Link
               to={`/channel/${prop.item.channel_id}`}
               style={{ textDecoration: "none", color: "inherit" }}
@@ -83,11 +81,12 @@ const VideoCard = (prop) => {
                 {prop.item.channel_id}
               </h2>
             </Link>
+
             <div
               className={
                 prop.size ? "videocard--info-small" : "videocard--info"
               }
-            >{`${calculateDaysAgo(prop.item.published.seconds)} days ago`}</div>
+            >{`${calculateDaysAgo(prop.item.published?.seconds)} days ago`}</div>
           </div>
         </div>
       </div>

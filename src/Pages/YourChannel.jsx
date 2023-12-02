@@ -6,26 +6,22 @@ import {
   collection,
   setDoc,
   doc,
-  addDoc,
   getDoc,
-  serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
-import { Avatar, Box, Button, Card, TextField } from "@mui/material";
+import { Avatar, Button, Card, TextField } from "@mui/material";
 import youtube from "../images/YouTube-Logo.wine.svg";
 import CardMedia from "@mui/material/CardMedia";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import novideo from "../images/sadface.png";
+import Loader from "../Components/Loader";
 
-const Channel = () => {
+const Channel = (prop) => {
   const [channelName, setChannelName] = React.useState([]);
   const [openChannelDialog, setOpenChannelDialog] = React.useState(false);
-
-  console.log(channelName);
 
   const handleClickOpen = () => {
     setOpenChannelDialog(true);
@@ -37,6 +33,7 @@ const Channel = () => {
 
   const channelsCollectionRef = collection(db, "channels");
   const userCollectionRef = collection(db, "users");
+  const [loader, setLoader] = React.useState(true);
 
   const handleConfirm = async () => {
     try {
@@ -74,6 +71,8 @@ const Channel = () => {
   const [videoList, setVideoList] = React.useState([]);
   const videosCollectionRef = collection(db, "videos");
 
+
+
   React.useEffect(() => {
     const getVideoList = async () => {
       try {
@@ -85,16 +84,23 @@ const Channel = () => {
           .map((doc) => ({ ...doc.data(), id: doc.id }));
 
         setVideoList(filteredData);
+        
       } catch (err) {
         console.log(err);
       }
+      setLoader(false);
     };
     getVideoList();
-  }, []);
+  }, [prop.isUploaded]);
+
 
   const videoListElements = videoList.map((item) => (
     <VideoCard type="normal" item={item} />
   ));
+
+  if (loader) {
+    return <Loader />;
+  }
 
   return (
     <>
@@ -135,8 +141,7 @@ const Channel = () => {
 
       {localStorage.getItem("hasChannel") == "true" && (
         <div>
-         
-          <div className="your-channel--main" style={{padding:"5px"}}>
+          <div className="your-channel--main" style={{ padding: "5px" }}>
             <Avatar
               sx={{ width: 110, height: 110, marginTop: "20px" }}
               alt="profile pic"
@@ -148,7 +153,7 @@ const Channel = () => {
               <h4>@{localStorage.getItem("channelName")}</h4>
             </div>
           </div>
-          <hr style={{marginTop:"30px"}} className="menu--item-hr" />
+          <hr style={{ marginTop: "30px" }} className="menu--item-hr" />
 
           <h2 className="channel--subtitle">All your uploads...</h2>
           <div className="home--container" style={{ marginTop: "30px" }}>

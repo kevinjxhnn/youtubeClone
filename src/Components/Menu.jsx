@@ -23,7 +23,7 @@ const Menu = () => {
         </Link>
 
         <Link
-          to={localStorage.getItem("email") ? "/" : "/signin"}
+          to={localStorage.getItem("email") ? "/subscribtions" : "/signin"}
           style={{ textDecoration: "none", color: "inherit" }}
         >
           <div className="menu--item">
