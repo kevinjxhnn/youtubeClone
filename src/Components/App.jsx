@@ -6,7 +6,6 @@ import Home from "../Pages/Home";
 import Video from "../Pages/Video";
 import Signin from "../Pages/Signin";
 import React from "react";
-
 import { db } from "../services/Firebase";
 import { collection, getDocs } from "firebase/firestore";
 import YourChannel from "../Pages/YourChannel";
@@ -43,7 +42,6 @@ function App() {
 
   const videosCollectionRef = collection(db, "videos");
 
-  console.log(isUploaded)
 
   React.useEffect(() => {
     const getVideoList = async () => {
@@ -51,7 +49,7 @@ function App() {
         const data = await getDocs(videosCollectionRef);
         const dataReq = data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
         setVideoList(dataReq);
-
+        console.log("hello")
         setLoader(false);
       } catch (err) {
         console.log(err);

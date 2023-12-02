@@ -1,6 +1,5 @@
 import React from "react";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import IosShareIcon from "@mui/icons-material/IosShare";
 import NewComment from "../Components/NewComment";
 import Comment from "../Components/Comment";
 import Avatar from "@mui/material/Avatar";
@@ -37,8 +36,6 @@ const Video = () => {
   const videosCollectionRef = doc(db, "videos", id);
   const [commentAdded, setCommentAdded] = React.useState([]);
   const [isLiked, setIsLiked] = React.useState(false);
-
-  console.log(commentAdded);
 
   let userCollectionRef;
 
@@ -179,9 +176,6 @@ const Video = () => {
           ...doc.data(),
         }));
         setCommentList(commentsData);
-        console.log("hello");
-
-        console.log("in comments effect");
       } catch (error) {
         console.error("Error fetching comments:", error);
       }
@@ -206,8 +200,6 @@ const Video = () => {
             SetSubscriberCount(channelDoc.data().subscribers);
           }
 
-          console.log("in main effect");
-
           setLikeCount(video.data().likes);
           setLoader(false);
 
@@ -226,8 +218,6 @@ const Video = () => {
           } else {
             setIsLiked(false);
           }
-
-          
         } else {
           console.log("Video not found.");
         }

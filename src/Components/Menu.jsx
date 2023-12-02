@@ -41,7 +41,7 @@ const Menu = () => {
               style={{ textDecoration: "none", color: "inherit" }}
             >
               <div className="menu--login-container">
-                Sign in to like videos, comment and subscribe.
+                Sign in to like videos, comment, subscribe to channels and more.
                 <Button>
                   <AccountCircleIcon /> Sign In
                 </Button>

@@ -43,7 +43,7 @@ const Subscribtions = () => {
               subscribedVideos.push({ id: doc.id, ...doc.data() });
             });
 
-            console.log("Subscribed Videos:", subscribedVideos);
+
 
             setVideoList(subscribedVideos);
             
