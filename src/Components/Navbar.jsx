@@ -25,7 +25,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-import { app, db } from "../services/Firebase";
+import { app, db, handleLogout } from "../services/Firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
 
@@ -36,10 +36,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const Navbar = (prop) => {
   const navigate = useNavigate();
 
-  function handleClick() {
-    localStorage.clear();
-    window.location.reload();
-  }
+  
 
   const [open, setOpen] = React.useState(false);
   const [errorOpen, setErrorOpen] = React.useState(false);
@@ -229,7 +226,7 @@ const Navbar = (prop) => {
                   color: "#373737  !important",
                   borderColor: "#373737  !important",
                 }}
-                onClick={handleClick}
+                onClick={() => handleLogout(navigate)}
               >
                 Log out <ExitToAppIcon />
               </Button>

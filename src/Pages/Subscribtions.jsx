@@ -61,7 +61,7 @@ const Subscribtions = () => {
     };
 
     fetchData();
-  }, [userDocRef]);
+  }, []);
 
   let id = 0;
   const videoListElements = videoList?.map((item) => (

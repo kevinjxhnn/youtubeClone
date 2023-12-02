@@ -8,6 +8,7 @@ import {
   serverTimestamp,
   setDoc,
 } from "firebase/firestore";
+import { signOut } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDbIY99O42wT-KuoEr6n3VVmCQueJh99M0",
@@ -18,7 +19,6 @@ const firebaseConfig = {
   appId: "1:429538742969:web:fba7950f016430df730168",
 };
 
-// Initialize Firebase
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
@@ -26,6 +26,7 @@ const provider = new GoogleAuthProvider();
 export const db = getFirestore(app);
 
 const userCollectionRef = collection(db, "users");
+
 export const signInWithGoogle = (navigate) => {
   signInWithPopup(auth, provider)
     .then(async (result) => {
@@ -38,9 +39,7 @@ export const signInWithGoogle = (navigate) => {
       localStorage.setItem("profilePic", profilePic);
 
       const userId = localStorage.getItem("email");
-
       const userDocRef = doc(userCollectionRef, userId);
-
       const existingDoc = await getDoc(userDocRef);
 
       if (!existingDoc.exists()) {
@@ -63,3 +62,16 @@ export const signInWithGoogle = (navigate) => {
       window.location.reload();
     });
 };
+
+
+export async function handleLogout(navigate) {
+  try {
+    await signOut(auth); 
+    localStorage.clear();
+    navigate("/"); 
+    window.location.reload();
+    
+  } catch (error) {
+    console.error('Error signing out:', error);
+  }
+}
