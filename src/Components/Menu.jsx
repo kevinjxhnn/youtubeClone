@@ -14,7 +14,8 @@ const Menu = () => {
         <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
           <div className="menu--logo-container">
             <img src={img} alt="youtube icon" />
-            Youtube
+            YouTube
+            <sup className="sup">IN</sup>
           </div>
           <div className="menu--item">
             <HomeIcon />

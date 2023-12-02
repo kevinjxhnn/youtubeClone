@@ -9,8 +9,9 @@ const VideoCard = (prop) => {
   const [currentChannel, setCurrentChannel] = React.useState({});
 
   const getChannelData = channelContextData?.find(
-    (item) => item.id == prop.item.channel_id
+    (item) => item.id === prop.item.channel_id
   );
+
 
   React.useEffect(() => {
     setCurrentChannel(getChannelData);

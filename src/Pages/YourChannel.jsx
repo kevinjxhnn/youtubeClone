@@ -95,7 +95,7 @@ const Channel = (prop) => {
 
 
   const videoListElements = videoList.map((item) => (
-    <VideoCard type="normal" item={item} />
+    <VideoCard type="normal" item={item} page="user"/>
   ));
 
   if (loader) {
