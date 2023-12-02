@@ -34,69 +34,69 @@ const VideoCard = (prop) => {
           alt="thumbnail"
         />{" "}
       </Link>
-
-      <div
-        className={
-          prop.size
-            ? "videocard--details-container-small"
-            : "videocard--details-container"
-        }
-      >
-        <Link
-          to={`/channel/${prop.item.channel_id}`}
-          style={{ textDecoration: "none", color: "inherit" }}
-        >
-          <img
-            className={
-              prop.size
-                ? "videocard--channel-img-small"
-                : "videocard--channel-img"
-            }
-            src={currentChannel?.channel_profile_pic}
-            alt="profile pic"
-          />
-        </Link>
-
+      <div className="videocard--delete">
         <div
           className={
-            prop.size ? "videocard--texts-img-small" : "videocard--texts"
+            prop.size
+              ? "videocard--details-container-small"
+              : "videocard--details-container"
           }
         >
           <Link
             to={`/channel/${prop.item.channel_id}`}
             style={{ textDecoration: "none", color: "inherit" }}
           >
-            <h1
-              className={
-                prop.size ? "videocard--title-small" : "videocard--title"
-              }
-            >
-              {prop.item.title}
-            </h1>
-
-            <h2
+            <img
               className={
                 prop.size
-                  ? "videocard--channel-name-small"
-                  : "videocard--channel-name"
+                  ? "videocard--channel-img-small"
+                  : "videocard--channel-img"
               }
-            >
-              {prop.item.channel_id}
-            </h2>
-
-            <div
-              className={
-                prop.size ? "videocard--info-small" : "videocard--info"
-              }
-            >{`${calculateDaysAgo(
-              prop.item.published?.seconds
-            )} days ago`}</div>
+              src={currentChannel?.channel_profile_pic}
+              alt="profile pic"
+            />
           </Link>
-        </div>
 
+          <div
+            className={
+              prop.size ? "videocard--texts-img-small" : "videocard--texts"
+            }
+          >
+            <Link
+              to={`/channel/${prop.item.channel_id}`}
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <h1
+                className={
+                  prop.size ? "videocard--title-small" : "videocard--title"
+                }
+              >
+                {prop.item.title}
+              </h1>
+
+              <h2
+                className={
+                  prop.size
+                    ? "videocard--channel-name-small"
+                    : "videocard--channel-name"
+                }
+              >
+                {prop.item.channel_id}
+              </h2>
+
+              <div
+                className={
+                  prop.size ? "videocard--info-small" : "videocard--info"
+                }
+              >{`${calculateDaysAgo(
+                prop.item.published?.seconds
+              )} days ago`}</div>
+            </Link>
+          </div>
+        </div>
         {prop.channel && (
-          <div style={{ display: "flex", alignItems:"center" }}>
-            <div >
+          <div>
+            <div>
               <IconButton
                 aria-label="delete"
                 onClick={() => prop.handleDelete(prop.item.id)}

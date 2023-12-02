@@ -181,7 +181,7 @@ input:focus {
   display: flex;
   margin-top: 10px;
   gap: 16px;
-  justify-content: space-evenly;
+  position: relative;
 }
 
 .videocard--channel-img {
@@ -573,7 +573,10 @@ input:focus {
   padding: 10px;
 }
 
-.yourchannel--delete {
+
+.videocard--delete{
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5px;
 }
