@@ -15,6 +15,7 @@ Welcome to the YouTube Clone project! This project is a simplified version of Yo
 - **Upload Videos:** Users can upload videos with a unique thumbnail.
 - **Like Videos:** Signed-in users can like videos they enjoy.
 - **Subscribe to Channels:** Users can subscribe to channels to stay updated with their content.
+- **Delete Uploaded Videos:** Users can delete their own uploaded videos if they decide to remove content from the platform.
 - **Comment on Videos:** Users can leave comments under videos.
 
 ### Additional Pages
@@ -32,17 +33,18 @@ Welcome to the YouTube Clone project! This project is a simplified version of Yo
 ## Getting Started
 
 1. Clone the repository to your local machine.
-    ```bash
-    git clone https://github.com/kevinjxhnn/youtubeClone.git
-    ```
+   ```bash
+   git clone https://github.com/kevinjxhnn/youtubeClone.git
+   ```
 2. Cd into the directory
 
 3. Install the dependancies
-    ```bash
-    npm install
-    ```
+
+   ```bash
+   npm install
+   ```
 
 4. Run the project
-    ```bash
-    npm start
-    ```
+   ```bash
+   npm start
+   ```

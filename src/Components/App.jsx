@@ -94,7 +94,7 @@ function App() {
                 <Route path="/">
                   <Route index element={<Home videoList={videosToDisplay} />} />
                   <Route path="/signin" element={<Signin />} />
-                  <Route path="/your-channel" element={<YourChannel isUploaded={isUploaded}/>} />
+                  <Route path="/your-channel" element={<YourChannel isUploaded={isUploaded} setIsUploaded={setIsUploaded}/>} />
                   <Route path="/channel/:channelName" element={<Channel />} />
                   <Route path="/subscribtions" element={<Subscribtions />} />
                   <Route path="video">

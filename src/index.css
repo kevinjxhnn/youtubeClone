@@ -63,7 +63,7 @@ h4 {
   margin-right: 5px;
 }
 
-.sup{
+.sup {
   font-weight: 400;
   color: #999;
   margin-bottom: 6px;
@@ -168,6 +168,7 @@ input:focus {
   width: 360px;
   margin-bottom: 45px;
   cursor: pointer;
+  flex-direction: column;
 }
 
 .videocard--image {
@@ -180,6 +181,7 @@ input:focus {
   display: flex;
   margin-top: 10px;
   gap: 16px;
+  justify-content: space-evenly;
 }
 
 .videocard--channel-img {
@@ -569,4 +571,9 @@ input:focus {
   justify-content: space-between;
   align-items: center;
   padding: 10px;
+}
+
+.yourchannel--delete {
+  display: flex;
+  flex-direction: column;
 }

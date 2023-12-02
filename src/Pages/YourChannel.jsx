@@ -8,6 +8,7 @@ import {
   doc,
   getDoc,
   updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import { Avatar, Button, Card, TextField } from "@mui/material";
 import youtube from "../images/YouTube-Logo.wine.svg";
@@ -72,6 +73,20 @@ const Channel = (prop) => {
   const videosCollectionRef = collection(db, "videos");
 
 
+  const handleDelete = async (docId) => {
+    try {
+      const videoRef = doc(db, "videos", docId);
+  
+      await deleteDoc(videoRef);
+      prop.setIsUploaded((prev) => [...prev, "deleted"])
+  
+      console.log("Document successfully deleted!");
+    } catch (error) {
+      console.error("Error deleting document: ", error);
+    }
+  };
+
+
 
   React.useEffect(() => {
     const getVideoList = async () => {
@@ -95,7 +110,7 @@ const Channel = (prop) => {
 
 
   const videoListElements = videoList.map((item) => (
-    <VideoCard type="normal" item={item} page="user"/>
+    <VideoCard type="normal" item={item} channel={true} handleDelete={handleDelete}/>
   ));
 
   if (loader) {
