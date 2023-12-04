@@ -7,7 +7,7 @@ import { addDoc, collection } from "firebase/firestore";
 
 const NewComment = (prop) => {
   const [newComment, setNewComment] = useState("");
-  const channel_id = localStorage.getItem("name");
+  const channel_id = localStorage.getItem("channelName") == 'undefined' ? localStorage.getItem("name") : localStorage.getItem("channelName") ;
   const content = newComment;
   const video_id = prop.id;
   const published = serverTimestamp();
