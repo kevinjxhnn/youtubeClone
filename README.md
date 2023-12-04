@@ -48,3 +48,5 @@ Welcome to the YouTube Clone project! This project is a simplified version of Yo
    ```bash
    npm start
    ```
+
+Alternatively, you can visit https://youtube-clone-3dvr0j4ga-kevins-projects-da31a083.vercel.app/ to view the project
