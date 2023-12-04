@@ -56,10 +56,13 @@ const Video = () => {
       const videoRef = doc(db, "videos", videoData.id);
       const userDoc = await getDoc(userCollectionRef);
 
+      const videoDoc = await getDoc(videoRef);
+      const count = videoDoc.data().likes;
+
       setIsLiked(true);
 
       await updateDoc(videoRef, {
-        likes: increment(1),
+        likes: count + 1,
       });
 
       if (userDoc.exists()) {
@@ -201,7 +204,7 @@ const Video = () => {
           }
 
           setLikeCount(video.data().likes);
-          setLoader(false);
+          
 
           const userDoc = await getDoc(userCollectionRef);
           if (
@@ -218,6 +221,8 @@ const Video = () => {
           } else {
             setIsLiked(false);
           }
+
+          setLoader(false);
         } else {
           console.log("Video not found.");
         }
