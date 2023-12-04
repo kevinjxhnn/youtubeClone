@@ -7,8 +7,7 @@ import { addDoc, collection } from "firebase/firestore";
 
 const NewComment = (prop) => {
   const [newComment, setNewComment] = useState("");
-
-  const channel_id = localStorage.getItem("channelName");
+  const channel_id = localStorage.getItem("name");
   const content = newComment;
   const video_id = prop.id;
   const published = serverTimestamp();
@@ -28,15 +27,12 @@ const NewComment = (prop) => {
 
         setNewComment("");
 
-        prop.setCommentAdded((prev) => [...prev, "added"])
-
+        prop.setCommentAdded((prev) => [...prev, "added"]);
       } catch (error) {
         console.error("Error adding document:", error);
       }
     }
   };
-
-
 
   return (
     <div className="comment--container">
