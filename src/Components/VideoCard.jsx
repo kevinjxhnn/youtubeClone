@@ -42,20 +42,39 @@ const VideoCard = (prop) => {
               : "videocard--details-container"
           }
         >
-          <Link
-            to={`/channel/${prop.item.channel_id}`}
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            <img
-              className={
-                prop.size
-                  ? "videocard--channel-img-small"
-                  : "videocard--channel-img"
-              }
-              src={currentChannel?.channel_profile_pic}
-              alt="profile pic"
-            />
-          </Link>
+          {localStorage.getItem("email") && (
+            <Link
+              to={`/channel/${prop.item.channel_id}`}
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <img
+                className={
+                  prop.size
+                    ? "videocard--channel-img-small"
+                    : "videocard--channel-img"
+                }
+                src={currentChannel?.channel_profile_pic}
+                alt="profile pic"
+              />
+            </Link>
+          )}
+
+          {!localStorage.getItem("email") && (
+            <Link
+              to={`/video/${prop.item.id}`}
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <img
+                className={
+                  prop.size
+                    ? "videocard--channel-img-small"
+                    : "videocard--channel-img"
+                }
+                src={currentChannel?.channel_profile_pic}
+                alt="profile pic"
+              />
+            </Link>
+          )}
 
           <div
             className={
@@ -63,7 +82,7 @@ const VideoCard = (prop) => {
             }
           >
             <Link
-              to={`/channel/${prop.item.channel_id}`}
+              to={`/video/${prop.item.id}`}
               style={{ textDecoration: "none", color: "inherit" }}
             >
               <h1

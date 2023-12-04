@@ -65,7 +65,7 @@ const Channel = () => {
     setIsSubscribed(false);
 
     if (userDoc.exists()) {
-      if (userDoc.data().subscribed.includes(channelName)) {
+      if (userDoc.data().subscribed?.includes(channelName)) {
         await setDoc(
           userCollectionRef,
           {
@@ -88,7 +88,7 @@ const Channel = () => {
   React.useEffect(() => {
     const checkSubscription = async () => {
       const userDoc = await getDoc(userCollectionRef);
-      if (userDoc.exists() && userDoc.data().subscribed.includes(channelName)) {
+      if (userDoc.exists() && userDoc.data().subscribed?.includes(channelName)) {
         setIsSubscribed(true);
       } else {
         setIsSubscribed(false);
