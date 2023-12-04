@@ -233,7 +233,7 @@ const Navbar = (prop) => {
             )}
           </div>
         </div>
-        jaknsjndkajsnd'
+
       </div>
 
       <Dialog
