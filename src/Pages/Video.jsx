@@ -204,7 +204,7 @@ const Video = () => {
           }
 
           setLikeCount(video.data().likes);
-          
+
           setLoader(false);
 
           const userDoc = await getDoc(userCollectionRef);
@@ -222,7 +222,6 @@ const Video = () => {
           } else {
             setIsLiked(false);
           }
-          
         } else {
           console.log("Video not found.");
         }
