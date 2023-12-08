@@ -49,4 +49,4 @@ Welcome to the YouTube Clone project! This project is a simplified version of Yo
    npm start
    ```
 
-Alternatively, you can visit https://youtube-clone-byk4cpi3f-kevins-projects-da31a083.vercel.app/ to view the project
+Alternatively, you can visit https://youtube-clone-git-main-kevins-projects-da31a083.vercel.app/ to view the project
